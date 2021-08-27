@@ -43,10 +43,10 @@ export default class App extends Component {
           imgData: prevState.imgData
             ? [...prevState.imgData, ...imgData.hits]
             : imgData.hits,
+          loading: false,
         }));
       })
-      .catch((error) => this.setState({ error }))
-      .finally(this.setState({ loading: false }));
+      .catch((error) => this.setState({ error }));
   };
 
   componentDidUpdate(prevProps, prevState) {
