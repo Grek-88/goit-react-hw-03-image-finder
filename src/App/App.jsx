@@ -71,7 +71,7 @@ export default class App extends Component {
         <Searchbar onSubmit={this.submitForm} />
         {error && <h3>{error.message}</h3>}
         {imgData && imgData.length === 0 && (
-          <h3>По такому запросу картинок не найдено. Введите другой запрос</h3>
+          <h3>По такому запросу картинок не найдено. Введите другой запрос.</h3>
         )}
         {!imgData && loading && <LoaderMore />}
         {imgData && imgData.length > 0 && (

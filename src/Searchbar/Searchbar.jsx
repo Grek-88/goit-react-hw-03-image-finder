@@ -4,7 +4,7 @@ export default function Searchbar(props) {
   function inputQuery(ev) {
     ev.preventDefault();
     if (ev.target[1].value.trim() === "") {
-      alert("введиет слово");
+      alert("Для поиска необходимо ввести слово");
       return;
     }
     props.onSubmit(ev.target[1].value.toLowerCase());
