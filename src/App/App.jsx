@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Searchbar from "../Searchbar/Searchbar";
 import s from "../App/App.module.css";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
+import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import LoaderMore from "../Loader/Loader";
 
@@ -13,6 +13,8 @@ export default class App extends Component {
     loading: false,
     page: 1,
     error: null,
+    isOpenModal: false,
+    bigurl: "",
   };
 
   submitForm = (dataQuery) => {
@@ -65,6 +67,15 @@ export default class App extends Component {
     this.fetchData();
   };
 
+  togleModalShow = (ev) => {
+    if (!this.state.isOpenModal) {
+      this.setState({ bigurl: ev.target.dataset.bigurl });
+    }
+    this.setState((prevState) => ({
+      isOpenModal: !prevState.isOpenModal,
+    }));
+  };
+
   render({ imgData, loading, error } = this.state) {
     return (
       <div className={s.App}>
@@ -76,9 +87,16 @@ export default class App extends Component {
         {!imgData && loading && <LoaderMore />}
         {imgData && imgData.length > 0 && (
           <>
-            <ImageGallery>
-              <ImageGalleryItem imgData={this.state.imgData} />
-            </ImageGallery>
+            <ImageGallery
+              images={this.state.imgData}
+              onClick={this.togleModalShow}
+            />
+            {this.state.isOpenModal && (
+              <Modal
+                showModal={this.togleModalShow}
+                props={this.state.bigurl}
+              />
+            )}
             {loading ? <LoaderMore /> : <Button onClick={this.getNewImg} />}
           </>
         )}
